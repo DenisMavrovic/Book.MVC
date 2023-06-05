@@ -7,7 +7,12 @@ namespace Book.MVC.Controllers
 	public class BookController : Controller
 	{
 		BookRepository _bookRepository;
-		public IActionResult Index()
+
+        public BookController()
+        {
+            _bookRepository = new BookRepository();
+        }
+        public IActionResult Index()
 		{
 			List<Books> books = _bookRepository.GetBooks();
 

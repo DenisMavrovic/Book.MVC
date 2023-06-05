@@ -6,7 +6,7 @@ namespace Book.MVC.Repository
 {
 	public class BookRepository
 	{
-		private string _connectionString = "Server=localhost; Database=BookLibrary;TrustServerCertificate=True;Integrated Security=True;";
+		private string _connectionString = "Server=DESKTOP-9QS312H\\SQLEXPRESS01; Database=BookLibrary; TrustServerCertificate=True;Integrated Security=True;";
 
 		public List<Books> GetBooks()
 		{
@@ -37,7 +37,7 @@ namespace Book.MVC.Repository
 				book.Genre = readBooks["Genre"].ToString();
 				book.Stock = (int)readBooks["Stock"];
 				book.ReleaseDate = (DateTime)readBooks["ReleaseDate"];
-				book.Author = (Author)readBooks["AuthorId"];
+				// book.Author = (Author)readBooks["AuthorId"];
 
 				books.Add(book);
 			}
@@ -82,7 +82,7 @@ namespace Book.MVC.Repository
 					book.Genre = readBooks["Genre"].ToString();
 					book.Stock = (int)readBooks["Stock"];
 					book.ReleaseDate = (DateTime)readBooks["ReleaseDate"];
-					book.Author = (Author)readBooks["AuthorId"];
+					//book.Author = (Author)readBooks["AuthorId"];
 				}
 
 				readBooks.Close();
