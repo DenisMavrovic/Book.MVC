@@ -1,0 +1,56 @@
+﻿@model Books
+
+<h1>Detalji knjige</h1>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dt class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dt>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dt class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dt>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dt class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dt>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Genre)
+        </dt>
+        <dt class="col-sm-10">
+            @Html.DisplayFor(model => model.Genre)
+        </dt>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Stock)
+        </dt>
+        <dt class="col-sm-10">
+            @Html.DisplayFor(model => model.Stock)
+        </dt>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </dt>
+        <dt class="col-sm-10">
+            @Html.DisplayFor(model => model.ReleaseDate)
+        </dt>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+        <dt class="col-sm-10">
+            @Html.DisplayFor(model => model.Author)
+        </dt>
+    </dl>
+</div>
+
+<hr />
+
+<div>
+    <a asp-action="Index">Natrag na pregled svih knjiga</a>
+</div>

@@ -1,0 +1,26 @@
+﻿@model Books
+
+<h1>Jeste li sigurni da želite obrisati knjigu?</h1>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dt class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dt>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dt class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dt>
+    </dl>
+</div>
+<hr />
+
+<form asp-action="DeleteBook">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <input type="submit" class="btn btn-danger" value="Obriši" />
+</form>
