@@ -11,9 +11,9 @@ namespace Book.MVC.Repository
 		public List<Books> GetBooks()
 		{
 			List<Books> books = new List<Books>();
-
-			// 1. Kreiramo novu konekciju
-			SqlConnection connection = new SqlConnection(_connectionString);
+           
+            // 1. Kreiramo novu konekciju
+            SqlConnection connection = new SqlConnection(_connectionString);
 
 			// 2. Kreiramo novu komandu
 			SqlCommand cmd = new SqlCommand();
@@ -30,6 +30,7 @@ namespace Book.MVC.Repository
 			while (readBooks.Read())
 			{
 				Books book = new Books();
+
 				// 5. Mapiranje podataka iz tablice baze podataka
 				book.Id = (int)readBooks["Id"];
 				book.Title = readBooks["Title"].ToString();
@@ -37,7 +38,8 @@ namespace Book.MVC.Repository
 				book.Genre = readBooks["Genre"].ToString();
 				book.Stock = (int)readBooks["Stock"];
 				book.ReleaseDate = (DateTime)readBooks["ReleaseDate"];
-				// book.Author = (Author)readBooks["AuthorId"];
+				book.Author = new Author();
+						book.Author.Id = (int)readBooks["AuthorId"];
 
 				books.Add(book);
 			}
@@ -58,7 +60,7 @@ namespace Book.MVC.Repository
 		public Books GetBookById(int id)
 		{
 			Books book = new Books();
-
+			
 			// 1. Kreiramo konekciju - skraćeni način, automatski zatvara konekciju
 			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
@@ -72,23 +74,24 @@ namespace Book.MVC.Repository
 				connection.Open();
 
 				// 4. Čitamo podatke
-				SqlDataReader readBooks = cmd.ExecuteReader();
-				while (readBooks.Read())
+				SqlDataReader readBook = cmd.ExecuteReader();
+				while (readBook.Read())
 				{
 					// 5. Mapiramo podatke
-					book.Id = (int)readBooks["Id"];
-					book.Title = readBooks["Title"].ToString();
-					book.Description = readBooks["Description"].ToString();
-					book.Genre = readBooks["Genre"].ToString();
-					book.Stock = (int)readBooks["Stock"];
-					book.ReleaseDate = (DateTime)readBooks["ReleaseDate"];
-					//book.Author = (Author)readBooks["AuthorId"];
+					book.Id = (int)readBook["Id"];
+					book.Title = readBook["Title"].ToString();
+					book.Description = readBook["Description"].ToString();
+					book.Genre = readBook["Genre"].ToString();
+					book.Stock = (int)readBook["Stock"];
+					book.ReleaseDate = (DateTime)readBook["ReleaseDate"];
+					book.Author = new Author();
+						book.Author.Id = (int)readBook["AuthorId"];
 				}
 
-				readBooks.Close();
+				readBook.Close();
 
-				// 5.1 Dohvatiti i povezati
-				List<Author> authors = new List<Author>();
+				// 5.1 Dohvatiti i povezati autora
+				
 				using (var cmdItems = new SqlCommand("SELECT * FROM Author WHERE Id = @Id",
 					connection))
 				{
@@ -98,13 +101,8 @@ namespace Book.MVC.Repository
 					{
 						while (readerAuthor.Read())
 						{
-							Author author = new Author();
-							author.Id = (int)readerAuthor["ID"];
-							author.Name = readerAuthor["Name"].ToString();
-							author.Bio = readerAuthor["Bio"].ToString();
-
-							authors.Add(author);
-
+							book.Author.Name = readerAuthor["Name"].ToString();
+							book.Author.Bio = readerAuthor["Bio"].ToString();
 						}
 					}
 				}
